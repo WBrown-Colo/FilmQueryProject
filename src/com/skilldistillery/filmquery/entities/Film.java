@@ -1,5 +1,6 @@
 package com.skilldistillery.filmquery.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Film {
@@ -15,6 +16,7 @@ public class Film {
 	private double replacementCost;
 	private String rating;
 	private String specialFeatures;
+	private List<Actor> actors;
 	
 	public Film() {
 		
@@ -124,22 +126,30 @@ public class Film {
 		this.specialFeatures = specialFeatures;
 	}
 	
+	public List<Actor> getActors() {
+		return actors;
+	}
+
+	public void setActors(List<Actor> actors) {
+		this.actors = actors;
+	}
+	
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, id, languageId, length, rating, releaseYear, rentalDuration, rentalRate,
-				replacementCost, specialFeatures, title);
+		return Objects.hash(actors, description, id, languageId, length, rating, releaseYear, rentalDuration,
+				rentalRate, replacementCost, specialFeatures, title);
 	}
 	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Film [id=").append(id).append(", title=").append(title).append(", description=")
-		.append(description).append(", releaseYear=").append(releaseYear).append(", languageId=")
-		.append(languageId).append(", rentalDuration=").append(rentalDuration).append(", rentalRate=")
-		.append(rentalRate).append(", length=").append(length).append(", replacementCost=")
-		.append(replacementCost).append(", rating=").append(rating).append(", specialFeatures=")
-		.append(specialFeatures).append("]");
+				.append(description).append(", releaseYear=").append(releaseYear).append(", languageId=")
+				.append(languageId).append(", rentalDuration=").append(rentalDuration).append(", rentalRate=")
+				.append(rentalRate).append(", length=").append(length).append(", replacementCost=")
+				.append(replacementCost).append(", rating=").append(rating).append(", specialFeatures=")
+				.append(specialFeatures).append(", actors=").append(actors).append("]");
 		return builder.toString();
 	}
 	
@@ -153,9 +163,9 @@ public class Film {
 		if (getClass() != obj.getClass())
 			return false;
 		Film other = (Film) obj;
-		return Objects.equals(description, other.description) && id == other.id && languageId == other.languageId
-				&& length == other.length && Objects.equals(rating, other.rating) && releaseYear == other.releaseYear
-				&& rentalDuration == other.rentalDuration
+		return Objects.equals(actors, other.actors) && Objects.equals(description, other.description) && id == other.id
+				&& languageId == other.languageId && length == other.length && Objects.equals(rating, other.rating)
+				&& Objects.equals(releaseYear, other.releaseYear) && rentalDuration == other.rentalDuration
 				&& Double.doubleToLongBits(rentalRate) == Double.doubleToLongBits(other.rentalRate)
 				&& Double.doubleToLongBits(replacementCost) == Double.doubleToLongBits(other.replacementCost)
 				&& Objects.equals(specialFeatures, other.specialFeatures) && Objects.equals(title, other.title);

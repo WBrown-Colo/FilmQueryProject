@@ -8,8 +8,9 @@ public class Actor {
 	private String firstName;
 	private String lastName;
 	
+	public Actor() {}
+	
 	public Actor(int id, String firstName, String lastName) {
-		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
