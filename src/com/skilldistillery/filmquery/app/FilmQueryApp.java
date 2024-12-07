@@ -43,7 +43,27 @@ public class FilmQueryApp {
 
 			int choice = getInput();
 			input.nextLine();
+			
+			switch (choice) {
+			case 1:
+				System.out.println("Please input the film's ID.");
+				int filmId = input.nextInt();
+				Film film = db.findFilmById(filmId);
+				if (film != null) {
+					showFilm(film);
+				}
+				else {
+					System.out.println("This ID does not match a film on record.");
+				}
+			}
 		}
+	}
+
+	private void showFilm(Film film) {
+		System.out.println("\nTitle: " + film.getTitle());
+		System.out.println("Year: " + film.getReleaseYear());
+		System.out.println("Rating: " + film.getRating());
+		System.out.println("Description: " + film.getDescription());
 	}
 
 	private int getInput() {
