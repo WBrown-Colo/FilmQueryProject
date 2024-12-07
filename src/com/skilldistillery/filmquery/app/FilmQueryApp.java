@@ -46,6 +46,7 @@ public class FilmQueryApp {
 			input.nextLine();
 			
 			switch (choice) {
+			
 			case 1:
 				System.out.println("Please input the film's ID.");
 				int filmId = input.nextInt();
@@ -56,13 +57,21 @@ public class FilmQueryApp {
 				else {
 					System.out.println("This ID does not match a film on record.");
 				}
+				break;
 				
 			case 2:
 				System.out.println("Please input a keyword to search by:");
 				String keyword = input.nextLine();
 				List<Film> films = db.findFilmByKeyword(keyword);
-				
-				//TODO: Finish case - Create if/else
+				if (films.isEmpty()) {
+				      System.out.println("No films contain " + keyword);
+				} 
+				else {
+				      for (Film filmByKeyword : films) {
+				        showFilm(filmByKeyword);
+				}
+				break;
+				}        
 			}
 		}
 	}

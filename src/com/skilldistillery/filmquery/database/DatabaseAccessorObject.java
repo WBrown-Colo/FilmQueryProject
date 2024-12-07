@@ -91,16 +91,12 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 				actors.add(actor);
 			}
-
-			rs.close();
-			stmt.close();
-			conn.close();
 		}
 
-		catch (SQLException sqle) {
+			catch (SQLException sqle) {
 			System.err.println("Error getting actor " + filmId);
 			sqle.printStackTrace();
-		}
+			}
 
 		return actors;
 	}
@@ -108,8 +104,41 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	public List<Film> findFilmByKeyword(String keyword) {
 		List<Film> films = new ArrayList<>();
 		
-		//TODO: Create try/catch
+		try {
+			Connection conn = DriverManager.getConnection(URL, user, pass);
+			String sql = "SELECT f.id, f.title, f.description, f.release_year, l.name as language, f.rating, "
+		               + "f.language_id, f.length, f.rental_duration, f.rental_rate, f.replacement_cost, f.special_features "
+		               + "FROM film f JOIN language l ON f.language_id = l.id "
+		               + "WHERE f.title LIKE ?";
+			
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			String searchKeyword = "%" + keyword + "%";
+			stmt.setString(1, searchKeyword);
+			ResultSet rs = stmt.executeQuery();
+			
+		while (rs.next()) {
+			Film film = new Film();
+			film.setId(rs.getInt("id"));
+			film.setTitle(rs.getString("title"));
+			film.setDescription(rs.getString("description"));
+			film.setReleaseYear(rs.getInt("release_year"));
+			film.setLanguageId(rs.getInt("language_id"));
+			film.setRentalDuration(rs.getInt("rental_duration"));
+			film.setRentalRate(rs.getInt("rental_rate"));
+			film.setLength(rs.getInt("length"));
+			film.setReplacementCost(rs.getDouble("replacement_cost"));
+			film.setRating(rs.getString("rating"));
+			film.setSpecialFeatures(rs.getString("special_features"));
+			film.setActors(findActorsByFilmId(film.getId()));
+	        films.add(film);
+		}
+		}
 		
+		catch (SQLException sqle) {
+			System.err.println("Error getting film by " + keyword);
+			sqle.printStackTrace();
+		}
+	
 		return films;
 	}
 
