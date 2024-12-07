@@ -104,6 +104,14 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 		return actors;
 	}
+	
+	public List<Film> findFilmByKeyword(String keyword) {
+		List<Film> films = new ArrayList<>();
+		
+		//TODO: Create try/catch
+		
+		return films;
+	}
 
 	static {
 		try {

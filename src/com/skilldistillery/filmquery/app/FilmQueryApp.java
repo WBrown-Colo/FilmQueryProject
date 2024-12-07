@@ -1,6 +1,7 @@
 package com.skilldistillery.filmquery.app;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import com.skilldistillery.filmquery.database.DatabaseAccessor;
@@ -55,6 +56,13 @@ public class FilmQueryApp {
 				else {
 					System.out.println("This ID does not match a film on record.");
 				}
+				
+			case 2:
+				System.out.println("Please input a keyword to search by:");
+				String keyword = input.nextLine();
+				List<Film> films = db.findFilmByKeyword(keyword);
+				
+				//TODO: Finish case - Create if/else
 			}
 		}
 	}
