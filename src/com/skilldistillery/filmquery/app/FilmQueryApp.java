@@ -1,6 +1,5 @@
 package com.skilldistillery.filmquery.app;
 
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -81,6 +80,7 @@ public class FilmQueryApp {
 		System.out.println("Year: " + film.getReleaseYear());
 		System.out.println("Rating: " + film.getRating());
 		System.out.println("Description: " + film.getDescription());
+		System.out.println("Language: " + film.getLanguage());
 	}
 
 	private int getInput() {

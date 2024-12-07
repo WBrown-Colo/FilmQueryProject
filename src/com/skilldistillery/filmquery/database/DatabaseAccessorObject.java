@@ -23,7 +23,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 		try {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
-			String sql = "SELECT * FROM film WHERE id = ?";
+			String sql = "SELECT * FROM film f JOIN language l ON f.language_id = l.id WHERE f.id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
 			ResultSet rs = stmt.executeQuery();
@@ -33,6 +33,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setTitle(rs.getString("title"));
 				film.setDescription(rs.getString("description"));
 				film.setReleaseYear(rs.getInt("release_year"));
+				film.setLanguage(rs.getString("name"));
 				film.setLanguageId(rs.getInt("language_id"));
 				film.setRentalDuration(rs.getInt("rental_duration"));
 				film.setRentalRate(rs.getInt("rental_rate"));
@@ -76,7 +77,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 		try {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
-			String sql = "SELECT id, first_name, last_name" + " FROM actor"
+			String sql = "SELECT actor.id, first_name, last_name" + " FROM actor"
 					+ " JOIN film_actor ON actor.id = film_actor.actor_id" + " WHERE film_actor.film_id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -122,6 +123,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			film.setTitle(rs.getString("title"));
 			film.setDescription(rs.getString("description"));
 			film.setReleaseYear(rs.getInt("release_year"));
+			film.setLanguage(rs.getString("name"));
 			film.setLanguageId(rs.getInt("language_id"));
 			film.setRentalDuration(rs.getInt("rental_duration"));
 			film.setRentalRate(rs.getInt("rental_rate"));
