@@ -43,36 +43,43 @@ public class FilmQueryApp {
 
 			int choice = getInput();
 			input.nextLine();
-			
+
 			switch (choice) {
-			
+
 			case 1:
 				System.out.println("Please input the film's ID.");
 				int filmId = input.nextInt();
 				Film film = db.findFilmById(filmId);
 				if (film != null) {
 					showFilm(film);
-				}
-				else {
+				} else {
 					System.out.println("This ID does not match a film on record.");
 				}
 				break;
-				
+
 			case 2:
 				System.out.println("Please input a keyword to search by:");
 				String keyword = input.nextLine();
 				List<Film> films = db.findFilmByKeyword(keyword);
 				if (films.isEmpty()) {
-				      System.out.println("No films contain " + keyword);
-				} 
-				else {
-				      for (Film filmByKeyword : films) {
-				        showFilm(filmByKeyword);
+					System.out.println("No films contain " + keyword);
+				} else {
+					for (Film filmByKeyword : films) {
+						showFilm(filmByKeyword);
+					}
+					break;
 				}
+
+			case 3:
+				System.out.println("Goodbye!");
+				keepGoing = false;
 				break;
-				}        
-			}
+			default:
+				System.out.println("Invalid choice. Try again.");
+			
 		}
+	}
+
 	}
 
 	private void showFilm(Film film) {
@@ -81,14 +88,14 @@ public class FilmQueryApp {
 		System.out.println("Rating: " + film.getRating());
 		System.out.println("Description: " + film.getDescription());
 		System.out.println("Language: " + film.getLanguage());
+		System.out.println("Cast: " + film.getActors());
 	}
 
 	private int getInput() {
 		while (true) {
 			try {
 				return input.nextInt();
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				System.out.println("Error: Input MUST be a number.");
 			}
 			input.nextLine();
