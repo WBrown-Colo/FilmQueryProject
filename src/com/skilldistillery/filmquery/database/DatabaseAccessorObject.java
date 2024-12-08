@@ -109,12 +109,14 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
 			String sql = "SELECT f.id, f.title, f.description, f.release_year, l.name as language, f.rating, "
 		               + "f.language_id, f.length, f.rental_duration, f.rental_rate, f.replacement_cost, f.special_features "
-		               + "FROM film f JOIN language l ON f.language_id = l.id"
+		               + "FROM film f JOIN language l ON f.language_id = l.id "
 		               + "WHERE f.title LIKE ?";
 			
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			String searchKeyword = "%" + keyword + "%";
 			stmt.setString(1, searchKeyword);
+//			System.out.println(stmt);
+		
 			ResultSet rs = stmt.executeQuery();
 			
 		while (rs.next()) {
